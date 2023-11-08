@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import Select
 from dotenv import load_dotenv
 import os
+import time
 
 
 load_dotenv()
@@ -29,6 +30,10 @@ userPhone= os.getenv('USER_PHONE')
 userReference = os.getenv('USER_REFERENCE')
 userStreetA = os.getenv('USER_STREET_A')
 userStreetB = os.getenv('USER_STREET_B')
+userCCNumber = os.getenv('USER_CC_NUMBER')
+userCCYear= os.getenv('USER_CC_YEAR')
+userCCMonth= os.getenv('USER_CC_MONTH')
+userCVV = os.getenv('USER_CC_CVV')
 
 # Let's navigate to the home page
 driver.get(os.getenv('BASE_URL'))
@@ -38,9 +43,9 @@ elemMiCuenta = driver.find_element(By.CSS_SELECTOR, 'header .nav__links li:nth-c
 # Hover it in order to show the login button
 actions.move_to_element(elemMiCuenta).perform()
 # Find the login button
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'header .nav__links li:nth-child(5) a')))
 elemLogin = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'header .nav__links li:nth-child(5) a')))
 # Click it
-# elemLogin.click()
 elemLogin.click()
 
 # Waiting for email input to be interactable
@@ -73,7 +78,7 @@ else:
 
   print('Logged in')
 
-#Move through the nav menu
+#Move through the nav menu to add a Mamifero product
 elemMascotasDropdown = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li.auto.nav__links--primary.nav-drop.petco-open')))
 actions.move_to_element(elemMascotasDropdown).perform()
 elemMamiferosNav = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li[data-hierarchy="MamiferosNavNode"]')))
@@ -100,7 +105,7 @@ except AssertionError as e:
 else:
   print('Added Mamiferos item to cart')
 
-#Move through the nav menu
+#Move through the nav menu and add a Perro product
 elemMascotasDropdown = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li.auto.nav__links--primary.nav-drop.petco-open')))
 actions.move_to_element(elemMascotasDropdown).perform()
 elemPerrosNav = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'li[data-hierarchy="PerroNavNode"]')))
@@ -188,5 +193,63 @@ inputBetweenA.send_keys(userStreetA)
 inputBetweenB = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[ng-model="addressForm.betweenStreet2"]')))
 inputBetweenB.send_keys(userStreetB)
 
+btnSaveAddress = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR,'#sp-address-form > div.col-xs-6.col-sm-4.col-sm-offset-2 > button')))
+btnSaveAddress.click()
+
+#Confirm address location
+wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'btn-ubicacion-regresar02')))
+btnConfirmAddress =  wait.until(EC.element_to_be_clickable((By.CLASS_NAME, 'btn-ubicacion-regresar02')))
+btnConfirmAddress.click()
+
+# Select CreditCard as payment method
+wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, 'input[value="CR"')))
+inputCreditCard =  wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[value="CR"')))
+inputCreditCard.click()
+
+# add a new one
+wait.until_not(EC.invisibility_of_element((By.XPATH, '//*[@id="spPaymentTDC"]/div[1]/div[3]/button')))
+inputNewCC = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="spPaymentTDC"]/div[1]/div[3]/button')))
+actions.scroll_by_amount(0,200).perform() #needed as in 1240 resolution this button is covered by the chat button
+inputNewCC.click()
+
 # Saving a screenshot when the test finishes, just to confirm
-driver.save_screenshot('screenshot2.png')
+# driver.save_screenshot('screenshot5.png')
+
+inputCreditNumber = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[ng-model="newCardForm.accountHolderName"]')))
+inputCreditNumber.send_keys(userFirstName + " " + userFirstLastName + " " + userSecondLastName)
+
+inputCreditNumber = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[ng-model="newCardForm.cardNumber"]')))
+inputCreditNumber.send_keys(userCCNumber)
+
+wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'select[ng-model="newCardForm.expiryYear"]')))
+selectCreditYear = Select( wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'select[ng-model="newCardForm.expiryYear"]'))))
+selectCreditYear.select_by_visible_text(userCCYear)
+
+selectCreditMonth = Select( wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'select[ng-model="newCardForm.expiryMonth"]'))))
+selectCreditMonth.select_by_visible_text(userCCMonth)
+
+# driver.save_screenshot('screenshot6.png')
+
+btnSaveCC = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="sp-card-form"]/div[3]/button')))
+btnSaveCC.click()
+
+
+btnConfirmOrder = wait.until(EC.element_to_be_clickable((By.ID, 'orderConfirmationPPP')))
+btnConfirmOrder.click()
+
+# driver.save_screenshot('screenshot7.png')
+
+# So good so far
+
+inputCVV = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, 'input[ng-model="cvv"]')))
+inputCVV.send_keys(userCVV)
+
+btnFinalOK = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="spRemoveClass"]/div/div[3]/button[1]')))
+btnFinalOK.click()
+
+# driver.save_screenshot('screenshot8.png')
+
+# At this point it brings out an error about payment, but you need to wait around 20s for it to appear#
+# depending on the card used a modal with a different payment strip can also be invoqued
+# time.sleep(25)
+# driver.save_screenshot('screenshot9.png')
