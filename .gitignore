@@ -3,3 +3,5 @@
 
 # Remove screenshots
 *.png
+
+*/__pycache__

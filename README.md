@@ -30,7 +30,7 @@ These instructions assume you are using a Mac for development. For Windows, ask 
    pipx upgrade poetry
    ```
 
-1. `Optional `As part of poetry some functions are recommended, in my case to use with zsh and OMZ
+1. `Optional` As part of poetry some functions are recommended, in my case to use with zsh and OMZ
 
    ```zsh
    mkdir ~/.zfunc
