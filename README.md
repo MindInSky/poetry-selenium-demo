@@ -91,6 +91,21 @@ A quick look at the top-level files and directories you'll see in this project.
    - USER_EMAIL= valid username email
    - USER_PASSWORD= valid password
    - USER_NAME= Name of the user ( first name for now, so we can confirm it was logged in)
+   - USER_FIRST_LASTNAME= Name of the user
+   - USER_SECOND_LASTNAME= Name of the user
+   - USER_ZIPCODE= Zip code, must be valid!
+   - USER_COLONIA= must match zipcode area
+   - USER_CALLE= Any string here seems to work
+   - USER_NUMERO_EXT=Any number here seems to work
+   - USER_PHONE=Any number here seems to work
+   - USER_REFERENCE=Any string here seems to work
+   - USER_STREET_A=Any string here seems to work
+   - USER_STREET_B=Any string here seems to work
+   - USER_CC_NUMBER= Any 16 length number seems to work here as long as it starts with a valid BIN 446137 or 465283 are suggestions
+   - USER_CC_YEAR= Any year in the future in 4 digit format
+   - USER_CC_MONTH= month in number
+   - USER_CC_CVV= 3 digits for a CVV
+
 
 **`poetry.lock`** : Similar to other package manager lock files, not to be edited by hand
 
