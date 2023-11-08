@@ -95,6 +95,6 @@ A quick look at the top-level files and directories you'll see in this project.
 
 **`poetry.lock`** : Similar to other package manager lock files, not to be edited by hand
 
-**`poetry.lock`**: Created by poetry configs, might be removed later on
+**`poetry.toml`**: Created by poetry configs, might be removed later on
 
-**`poetry.lock`**: SImilar to package.json in storing information of this software
+**`pyproject.toml`**: SImilar to package.json in storing information of this software

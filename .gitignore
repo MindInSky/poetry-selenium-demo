@@ -1,1 +1,5 @@
+# Remove .env , this is private
 .env
+
+# Remove screenshots
+*.png
