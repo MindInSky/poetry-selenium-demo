@@ -43,12 +43,13 @@ wait.until(EC.title_contains('Petco Mexico | Petco México'))
 
 # Get text from Hello field
 elemUserLoggedIn = driver.find_element(By.CSS_SELECTOR, 'p.textCuenta')
-print(elemUserLoggedIn.text)
+# print(elemUserLoggedIn.text)
+userName = os.getenv('USER_NAME')
+
+# I'm checking that the user's name is reflected on the site
+# to confirm the log in worked
+assert userName in elemUserLoggedIn.text
 
 driver.save_screenshot('screenshot.png')
 
-# elem.clear()
-# elem.send_keys("pycon")
-# elem.send_keys(Keys.RETURN)
-# assert "No results found." not in driver.page_source
 driver.close()
