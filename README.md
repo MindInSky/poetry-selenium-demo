@@ -29,9 +29,8 @@ These instructions assume you are using a Mac for development. For Windows, ask 
    pipx install poetry &&
    pipx upgrade poetry
    ```
-<!-- This should be enough  -->
 
-1. As part of poetry some functions are recommended, in my case to use with zsh and OMZ
+1. `Optional `As part of poetry some functions are recommended, in my case to use with zsh and OMZ
 
    ```zsh
    mkdir ~/.zfunc
@@ -45,7 +44,7 @@ These instructions assume you are using a Mac for development. For Windows, ask 
    SSH is recommended.
 
    ```zsh
-   $ git clone git@github.com:MindInSky/poetry-selenium-demo.git
+   git clone git@github.com:MindInSky/poetry-selenium-demo.git
    ```
 
 1. **Install dependencies** We are using
@@ -53,34 +52,34 @@ These instructions assume you are using a Mac for development. For Windows, ask 
    package manager
 
    ```zsh
-   $ poetry install
+   poetry install
    ```
 
 1. **Run the tests** at the moment we run tests separately, example:
 
    ```zsh
-   $ poetry run python petco_demo/login.py
+   poetry run python petco_demo/login.py
    ```
 
-## Writting Tests
+<!-- ## Writting Tests
 
 ### Dictionary:
 
 - **Page** is used the tests to describe a valid URL target in the application.
 - **Screen** is used to refer to different states within the same Page.
-
+ -->
 
 ## 🧐 What's inside?
 
 A quick look at the top-level files and directories you'll see in this project.
 
-   .
-   ├── /petco_demo
-   ├── /tests
-   ├── .env
-   ├── poetry.lock
-   ├── poetry.toml
-   └── pyproject.toml
+      .
+      ├── /petco_demo
+      ├── /tests
+      ├── .env
+      ├── poetry.lock
+      ├── poetry.toml
+      └── pyproject.toml
 
 
 **`/petco_demo`**: This directory contains all of the code related to the tests created per the requirements presented.
